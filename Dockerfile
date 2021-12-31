@@ -1,4 +1,4 @@
-FROM appsvc/demoapp-base:latest
+FROM developerfindermcsdemo01.azurecr.io/mcs-demo/dev-finder:latest
 
 ### SSH Server
 RUN echo "root:Docker!" | chpasswd \
