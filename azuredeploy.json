@@ -134,6 +134,18 @@
       "metadata": {
         "description": "Use 'true' if you are deploying from the base repo, 'false' if you are deploying from your own fork. If you're using 'false', make sure you have admin permissions to the repo. If you get an error, you should add GitHub integration to another web app manually, so that you get a GitHub access token associated with your Azure Subscription."
       }
+    },
+    "websitesContainerStartTimeLimit": {
+      "type": "int",
+      "defaultvalue": 1500
+    },
+    "port": {
+      "type": "int",
+      "defaultvalue": 80      
+    },
+    "websitesPort":{
+      "type": "int", 
+      "defaultvalue": 80
     }
   },
   "variables": {
@@ -306,10 +318,9 @@
     {        
       "type": "Microsoft.ContainerRegistry/registries",
       "name": "[variables('containerRegistryName')]",
-      "apiVersion": "2017-06-01-preview",
+      "apiVersion": "2021-09-01",
       "sku": {
-          "name": "Managed_Basic",
-          "tier": "Managed"
+          "name": "Basic"
       },
       "location": "[variables('location')]",
       "properties": {
@@ -586,6 +597,9 @@
             "MYSQL_DATABASE": "[variables('mySQLDatabaseName')]",
             "RUBY_CHAT_URL": "[concat('https://', variables('chatAppName'), '.azurewebsites.net/')]",
             "TRACK_CUSTOM_EVENT_FUNCTION_URL": "",
+            "WEBSITES_CONTAINER_START_TIME_LIMIT": "[parameters('websitesContainerStartTimeLimit')]",
+            "WEBSITES_PORT": "[parameters('websitesPort')]", 
+            "PORT": "[parameters('port')]",
             "SEND_SMS_LOGIC_APP_URL": "[listCallbackURL(concat(resourceId('Microsoft.Logic/workflows/', variables('sendSMSLogicAppName')), '/triggers/manual'), '2016-06-01').value]"
           },
           "dependsOn": [

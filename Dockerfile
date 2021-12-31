@@ -30,7 +30,10 @@ RUN apk add --update --no-cache build-base linux-headers \
 COPY backend_uwsgi.ini /app/Backend/uwsgi.ini
 COPY nginx.conf /etc/nginx/nginx.conf
 
-EXPOSE 2222 80 
+EXPOSE 2222 80 3000
+
+# ENV variables
+#ENV WEBSITES_PORT=80
 
 ###startup.sh
 WORKDIR /app
